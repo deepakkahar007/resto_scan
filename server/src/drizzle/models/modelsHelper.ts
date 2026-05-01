@@ -1,4 +1,4 @@
-import { boolean, timestamp, uuid } from "drizzle-orm/pg-core";
+import { boolean, pgEnum, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const id = uuid("id").primaryKey().defaultRandom();
 
@@ -10,3 +10,21 @@ export const updatedAt = timestamp("updated_at")
 	.notNull()
 	.defaultNow()
 	.$onUpdate(() => new Date());
+
+// enums
+export const CuisineEnum = pgEnum("cuisine", [
+	"indian",
+	"chinese",
+	"italian",
+	"mexican",
+	"american",
+	"other",
+]);
+
+export const ItemTypeEnum = pgEnum("item_type", [
+	"veg",
+	"non_veg",
+	"egg",
+	"drink",
+	"other",
+]);

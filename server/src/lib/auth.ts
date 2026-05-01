@@ -1,10 +1,12 @@
-import { admin, organization } from "better-auth/plugins";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { admin, organization } from "better-auth/plugins";
 import type { Context } from "elysia";
 import { db } from "../drizzle/db";
 
 export const auth = betterAuth({
+  baseURL: "http://localhost:3000",
+  trustedOrigins: ["http://localhost:5173"],
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
