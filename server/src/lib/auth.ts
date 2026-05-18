@@ -2,8 +2,10 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter";
 import { db } from "../drizzle/db";
 import { env } from "../env/envSchema";
+import type { Context } from "elysia";
 
 export const auth = betterAuth({
+  baseURL: env.BETTER_AUTH_URL,
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -23,3 +25,13 @@ export const auth = betterAuth({
     },
   },
 });
+
+export const betterAuthHandler = (context: Context) => {
+  const BETTER_AUTH_ACCEPT_METHODS = ["POST", "GET"];
+  // validate request method
+  if (BETTER_AUTH_ACCEPT_METHODS.includes(context.request.method)) {
+    return auth.handler(context.request);
+  } else {
+    context.status(405);
+  }
+};

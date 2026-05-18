@@ -1,6 +1,8 @@
 import { openapi } from "@elysia/openapi";
 import { Elysia } from "elysia";
 import { z } from "zod";
+import { betterAuthHandler } from "./lib/auth";
+import { restaurentRoute } from "./routes/RestaurentRoute";
 
 const app = new Elysia()
   .use(
@@ -15,6 +17,8 @@ const app = new Elysia()
       return { error: error.messageValue?.message || "Validation error" };
     }
   })
+  .all("/api/auth/*", betterAuthHandler)
+  .use(restaurentRoute)
   .get("/", () => ({ msg: "hello world" }))
   .post(
     "/user/:id",
@@ -41,7 +45,8 @@ const app = new Elysia()
         },
       },
     },
-  ).listen(3000, ({url}) => {
+  )
+  .listen(3000, ({ url }) => {
     console.log(`Server is running on ${url}`);
   });
 
