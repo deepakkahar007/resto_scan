@@ -1,46 +1,41 @@
-import { openapi } from "@elysia/openapi";
 import { Elysia } from "elysia";
-import { z } from "zod";
 import { betterAuthHandler } from "./lib/auth";
 import { restaurentRoute } from "./routes/RestaurentRoute";
+import { openApiMiddleware } from "./middleware/openApiMiddleware";
 
 const app = new Elysia()
-  .use(
-    openapi({
-      mapJsonSchema: {
-        zod: z.toJSONSchema,
-      },
-    }),
-  )
+  .use(openApiMiddleware)
   .onError(({ code, error }) => {
     if (code === "VALIDATION") {
-      return { error: error.messageValue?.message || "Validation error" };
+      return { error: error.valueError?.message || "Validation error" };
     }
   })
   .all("/api/auth/*", betterAuthHandler)
   .use(restaurentRoute)
-  .get("/", () => ({ msg: "hello world" }))
-  .post(
-    "/user/:id",
-    async ({ params, body }) => {
-      const { id } = params;
-      const { name } = body;
-      return { msg: "user created", id, name };
-    },
+
+  .get(
+    "/health",
+    { status: "OK" },
     {
-      params: z.object({
-        id: z.string().min(3, "the 3 required"),
-      }),
-      body: z.object({
-        name: z.string().nonempty(),
-      }),
       detail: {
-        description: "Expected a username and password",
-        summary: "Sign in the user",
-        tags: ["authentication"],
+        description: "Health check endpoint",
+        tags: ["health"],
         responses: {
           200: {
-            description: "user created",
+            description: "health check",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    status: {
+                      type: "string",
+                      example: "OK",
+                    },
+                  },
+                },
+              },
+            },
           },
         },
       },
