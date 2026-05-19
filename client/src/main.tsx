@@ -7,12 +7,12 @@ import { TanstackRouterProvider } from "./integration/react-router/TanstackRoute
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-	const root = ReactDOM.createRoot(rootElement);
-	root.render(
-		<StrictMode>
-			<ReactQuery>
-				<TanstackRouterProvider />
-			</ReactQuery>
-		</StrictMode>,
-	);
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <StrictMode>
+      <ReactQuery>
+        <TanstackRouterProvider />
+      </ReactQuery>
+    </StrictMode>,
+  );
 }
