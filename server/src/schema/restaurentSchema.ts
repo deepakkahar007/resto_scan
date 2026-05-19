@@ -15,6 +15,7 @@ export const updateRestaurentSchema = createUpdateSchema(
   RestaurentTable,
   {},
 ).omit({
+  id: true,
   createdAt: true,
   updatedAt: true,
 });
