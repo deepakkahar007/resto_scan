@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
+import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
+import { Route as USERUserRestaurantIdIndexRouteImport } from './routes/(USER)/user/$restaurantId.index'
+import { Route as USERUserRestaurantIdSettingRouteImport } from './routes/(USER)/user/$restaurantId.setting'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +26,89 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const USERUserRestaurentIdRoute = USERUserRestaurentIdRouteImport.update({
+  id: '/(USER)/user/$restaurentId',
+  path: '/user/$restaurentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RESTAURENTRestaurentDashboardRoute =
+  RESTAURENTRestaurentDashboardRouteImport.update({
+    id: '/(RESTAURENT)/restaurent/dashboard',
+    path: '/restaurent/dashboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const USERUserRestaurantIdIndexRoute =
+  USERUserRestaurantIdIndexRouteImport.update({
+    id: '/(USER)/user/$restaurantId/',
+    path: '/user/$restaurantId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const USERUserRestaurantIdSettingRoute =
+  USERUserRestaurantIdSettingRouteImport.update({
+    id: '/(USER)/user/$restaurantId/setting',
+    path: '/user/$restaurantId/setting',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/user/$restaurentId': typeof USERUserRestaurentIdRoute
+  '/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/user/$restaurentId': typeof USERUserRestaurentIdRoute
+  '/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/user/$restaurantId': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRoute
+  '/(USER)/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/(USER)/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/restaurent/dashboard'
+    | '/user/$restaurentId'
+    | '/user/$restaurantId/setting'
+    | '/user/$restaurantId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/restaurent/dashboard'
+    | '/user/$restaurentId'
+    | '/user/$restaurantId/setting'
+    | '/user/$restaurantId'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/(RESTAURENT)/restaurent/dashboard'
+    | '/(USER)/user/$restaurentId'
+    | '/(USER)/user/$restaurantId/setting'
+    | '/(USER)/user/$restaurantId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
+  USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRoute
+  USERUserRestaurantIdSettingRoute: typeof USERUserRestaurantIdSettingRoute
+  USERUserRestaurantIdIndexRoute: typeof USERUserRestaurantIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +127,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(USER)/user/$restaurentId': {
+      id: '/(USER)/user/$restaurentId'
+      path: '/user/$restaurentId'
+      fullPath: '/user/$restaurentId'
+      preLoaderRoute: typeof USERUserRestaurentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(RESTAURENT)/restaurent/dashboard': {
+      id: '/(RESTAURENT)/restaurent/dashboard'
+      path: '/restaurent/dashboard'
+      fullPath: '/restaurent/dashboard'
+      preLoaderRoute: typeof RESTAURENTRestaurentDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(USER)/user/$restaurantId/': {
+      id: '/(USER)/user/$restaurantId/'
+      path: '/user/$restaurantId'
+      fullPath: '/user/$restaurantId/'
+      preLoaderRoute: typeof USERUserRestaurantIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(USER)/user/$restaurantId/setting': {
+      id: '/(USER)/user/$restaurantId/setting'
+      path: '/user/$restaurantId/setting'
+      fullPath: '/user/$restaurantId/setting'
+      preLoaderRoute: typeof USERUserRestaurantIdSettingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
+  USERUserRestaurentIdRoute: USERUserRestaurentIdRoute,
+  USERUserRestaurantIdSettingRoute: USERUserRestaurantIdSettingRoute,
+  USERUserRestaurantIdIndexRoute: USERUserRestaurantIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
