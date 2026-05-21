@@ -14,7 +14,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
 import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
 import { Route as USERUserRestaurantIdIndexRouteImport } from './routes/(USER)/user/$restaurantId.index'
-import { Route as USERUserRestaurantIdSettingRouteImport } from './routes/(USER)/user/$restaurantId.setting'
+import { Route as USERUserRestaurantIdBrowsemenuRouteImport } from './routes/(USER)/user/$restaurantId.browsemenu'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -43,10 +43,10 @@ const USERUserRestaurantIdIndexRoute =
     path: '/user/$restaurantId/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const USERUserRestaurantIdSettingRoute =
-  USERUserRestaurantIdSettingRouteImport.update({
-    id: '/(USER)/user/$restaurantId/setting',
-    path: '/user/$restaurantId/setting',
+const USERUserRestaurantIdBrowsemenuRoute =
+  USERUserRestaurantIdBrowsemenuRouteImport.update({
+    id: '/(USER)/user/$restaurantId/browsemenu',
+    path: '/user/$restaurantId/browsemenu',
     getParentRoute: () => rootRouteImport,
   } as any)
 
@@ -55,7 +55,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
   '/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -63,7 +63,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
   '/user/$restaurantId': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRoutesById {
@@ -72,7 +72,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/(USER)/user/$restaurantId/setting': typeof USERUserRestaurantIdSettingRoute
+  '/(USER)/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
   '/(USER)/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -82,7 +82,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/restaurent/dashboard'
     | '/user/$restaurentId'
-    | '/user/$restaurantId/setting'
+    | '/user/$restaurantId/browsemenu'
     | '/user/$restaurantId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -90,7 +90,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/restaurent/dashboard'
     | '/user/$restaurentId'
-    | '/user/$restaurantId/setting'
+    | '/user/$restaurantId/browsemenu'
     | '/user/$restaurantId'
   id:
     | '__root__'
@@ -98,7 +98,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/(RESTAURENT)/restaurent/dashboard'
     | '/(USER)/user/$restaurentId'
-    | '/(USER)/user/$restaurantId/setting'
+    | '/(USER)/user/$restaurantId/browsemenu'
     | '/(USER)/user/$restaurantId/'
   fileRoutesById: FileRoutesById
 }
@@ -107,7 +107,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
   USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRoute
-  USERUserRestaurantIdSettingRoute: typeof USERUserRestaurantIdSettingRoute
+  USERUserRestaurantIdBrowsemenuRoute: typeof USERUserRestaurantIdBrowsemenuRoute
   USERUserRestaurantIdIndexRoute: typeof USERUserRestaurantIdIndexRoute
 }
 
@@ -148,11 +148,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof USERUserRestaurantIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(USER)/user/$restaurantId/setting': {
-      id: '/(USER)/user/$restaurantId/setting'
-      path: '/user/$restaurantId/setting'
-      fullPath: '/user/$restaurantId/setting'
-      preLoaderRoute: typeof USERUserRestaurantIdSettingRouteImport
+    '/(USER)/user/$restaurantId/browsemenu': {
+      id: '/(USER)/user/$restaurantId/browsemenu'
+      path: '/user/$restaurantId/browsemenu'
+      fullPath: '/user/$restaurantId/browsemenu'
+      preLoaderRoute: typeof USERUserRestaurantIdBrowsemenuRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -163,7 +163,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
   USERUserRestaurentIdRoute: USERUserRestaurentIdRoute,
-  USERUserRestaurantIdSettingRoute: USERUserRestaurantIdSettingRoute,
+  USERUserRestaurantIdBrowsemenuRoute: USERUserRestaurantIdBrowsemenuRoute,
   USERUserRestaurantIdIndexRoute: USERUserRestaurantIdIndexRoute,
 }
 export const routeTree = rootRouteImport
