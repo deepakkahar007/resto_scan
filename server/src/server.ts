@@ -2,6 +2,8 @@ import { Elysia } from "elysia";
 import { betterAuthHandler } from "./lib/auth";
 import { restaurentRoute } from "./routes/RestaurentRoute";
 import { openApiMiddleware } from "./middleware/openApiMiddleware";
+import { addressRoute } from "./routes/AddressRoute";
+import { categoriesRoute } from "./routes/CategoriesRoute";
 
 const app = new Elysia()
   .use(openApiMiddleware)
@@ -12,6 +14,8 @@ const app = new Elysia()
   })
   .all("/api/auth/*", betterAuthHandler)
   .use(restaurentRoute)
+  .use(addressRoute)
+  .use(categoriesRoute)
 
   .get(
     "/health",
