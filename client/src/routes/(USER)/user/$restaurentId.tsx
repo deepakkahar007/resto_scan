@@ -5,10 +5,9 @@ export const Route = createFileRoute("/(USER)/user/$restaurentId")({
 });
 
 function RouteComponent() {
-  const { restaurentId } = Route.useParams();
+  // const { restaurentId } = Route.useParams();
   return (
     <div>
-      <nav>Restaurant {restaurentId} Navigation Sidebar</nav>
       {/* Child routes (index, setting, transactions) will render here */}
       <Outlet />
     </div>

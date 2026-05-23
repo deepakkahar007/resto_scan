@@ -2,12 +2,12 @@ import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Sparkles, ArrowRight, Bell, CheckCircle2 } from "lucide-react";
 
-export const Route = createFileRoute("/(USER)/user/$restaurantId/")({
+export const Route = createFileRoute("/(USER)/user/$restaurentId/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { restaurantId } = Route.useParams();
+  const { restaurentId } = Route.useParams();
 
   return (
     <div className="min-h-screen bg-[#FFF6F0] flex flex-col items-center p-5 pb-10 font-sans">
@@ -43,7 +43,7 @@ function RouteComponent() {
         </h1>
         <div className="flex items-center justify-center gap-2 text-gray-secondary mb-8">
           <span className="text-sm font-medium">
-            Table {restaurantId} · Scan to order
+            Table {restaurentId} · Scan to order
           </span>
           <CheckCircle2 className="w-4 h-4 text-green-primary" />
         </div>
@@ -66,7 +66,7 @@ function RouteComponent() {
 
         {/* Actions */}
         <div className="flex flex-col gap-4 w-full">
-          <Link to="/user/$restaurantId/browsemenu" params={{ restaurantId }}>
+          <Link to="/user/$restaurentId/browsemenu" params={{ restaurentId }}>
             <Button className="w-full h-14 bg-red-primary text-white font-semibold rounded-xl shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
               Browse Menu & Order <ArrowRight className="w-5 h-5" />
             </Button>

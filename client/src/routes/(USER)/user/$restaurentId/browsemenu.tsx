@@ -1,9 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Hamburger, ShoppingCart, Search, Sparkles, Plus } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Search, Sparkles, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import UserHeader from "@/components/user/UserHeader";
 
-export const Route = createFileRoute("/(USER)/user/$restaurantId/browsemenu")({
+export const Route = createFileRoute("/(USER)/user/$restaurentId/browsemenu")({
   component: RouteComponent,
 });
 
@@ -11,20 +12,9 @@ function RouteComponent() {
   // const { restaurantId } = Route.useParams();
 
   return (
-    <div className="min-h-screen bg-[#fcf9f8] pb-10">
+    <div className="max-w-md min-h-screen bg-[#fcf9f8] pb-10">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#fcf9f8]/95 backdrop-blur-xl border-b border-[#8f6f6d]/10 px-5 py-3 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <Hamburger className="text-coral-primary" />
-          <h1 className="font-bold text-[20px] tracking-tight">Dyni AI</h1>
-        </div>
-        <div className="relative cursor-pointer p-1">
-          <ShoppingCart className="text-on-background" />
-          <span className="absolute top-0 right-0 bg-coral-primary text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center border-2 border-[#fcf9f8]">
-            3
-          </span>
-        </div>
-      </header>
+      <UserHeader />
 
       <main className="px-5 pt-4 space-y-6">
         {/* Category Scroll */}
@@ -41,15 +31,13 @@ function RouteComponent() {
               "Beverages",
               "Desserts",
             ].map((cat, i) => (
-              <button
+              <Button
                 key={cat}
-                className={`font-semibold text-sm whitespace-nowrap pb-3 relative ${i === 0 ? "text-coral-primary" : "text-gray-500"}`}
+                variant={i === 0 ? "ghost" : "link"}
+                className={`font-semibold text-sm whitespace-nowrap pb-3 relative`}
               >
                 {cat}
-                {i === 0 && (
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-coral-primary rounded-full" />
-                )}
-              </button>
+              </Button>
             ))}
           </div>
         </div>
@@ -119,30 +107,34 @@ function RouteComponent() {
                   alt="Dish"
                 />
               </div>
+              <Link
+                to="/user/$restaurentId/$itemId"
+                params={{ restaurentId: "1", itemId: item.toString() }}
+              >
+                {/* CardContent reset to remove its default bottom padding/margin issues */}
+                <CardContent className="flex-1 flex flex-col">
+                  <div className="flex justify-between items-start gap-2">
+                    <h5 className="font-bold text-sm leading-tight">
+                      Garden Bliss Salad
+                    </h5>
+                    <span className="font-bold text-sm">₹280</span>
+                  </div>
 
-              {/* CardContent reset to remove its default bottom padding/margin issues */}
-              <CardContent className="flex-1 flex flex-col">
-                <div className="flex justify-between items-start gap-2">
-                  <h5 className="font-bold text-sm leading-tight">
-                    Garden Bliss Salad
-                  </h5>
-                  <span className="font-bold text-sm">₹280</span>
-                </div>
+                  <p className="text-xs text-gray-500 line-clamp-1">
+                    Fresh greens, citrus vinaigrette, feta, walnuts...
+                  </p>
 
-                <p className="text-xs text-gray-500 line-clamp-1">
-                  Fresh greens, citrus vinaigrette, feta, walnuts...
-                </p>
-
-                <div className="mt-2 flex justify-end">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-8 rounded-xl border-red-primary/20 text-red-primary hover:bg-red-primary hover:text-white"
-                  >
-                    <Plus className="h-4 w-4" /> Add
-                  </Button>
-                </div>
-              </CardContent>
+                  <div className="mt-2 flex justify-end">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 rounded-xl border-red-primary/20 text-red-primary hover:bg-red-primary hover:text-white"
+                    >
+                      <Plus className="h-4 w-4" /> Add
+                    </Button>
+                  </div>
+                </CardContent>
+              </Link>
             </Card>
           ))}
         </div>
