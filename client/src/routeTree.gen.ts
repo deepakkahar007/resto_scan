@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as USERUserPaymentRouteImport } from './routes/(USER)/user/payment'
+import { Route as USERUserOrderTrackingRouteImport } from './routes/(USER)/user/order-tracking'
 import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
 import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
 import { Route as USERUserRestaurentIdIndexRouteImport } from './routes/(USER)/user/$restaurentId/index'
@@ -25,6 +27,16 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const USERUserPaymentRoute = USERUserPaymentRouteImport.update({
+  id: '/(USER)/user/payment',
+  path: '/user/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const USERUserOrderTrackingRoute = USERUserOrderTrackingRouteImport.update({
+  id: '/(USER)/user/order-tracking',
+  path: '/user/order-tracking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const USERUserRestaurentIdRoute = USERUserRestaurentIdRouteImport.update({
@@ -62,6 +74,8 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
+  '/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/user/payment': typeof USERUserPaymentRoute
   '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
   '/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
   '/user/$restaurentId/': typeof USERUserRestaurentIdIndexRoute
@@ -70,6 +84,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/user/payment': typeof USERUserPaymentRoute
   '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
   '/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdIndexRoute
@@ -80,6 +96,8 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
+  '/(USER)/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/(USER)/user/payment': typeof USERUserPaymentRoute
   '/(USER)/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
   '/(USER)/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
   '/(USER)/user/$restaurentId/': typeof USERUserRestaurentIdIndexRoute
@@ -91,6 +109,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/restaurent/dashboard'
     | '/user/$restaurentId'
+    | '/user/order-tracking'
+    | '/user/payment'
     | '/user/$restaurentId/$itemId'
     | '/user/$restaurentId/browsemenu'
     | '/user/$restaurentId/'
@@ -99,6 +119,8 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/restaurent/dashboard'
+    | '/user/order-tracking'
+    | '/user/payment'
     | '/user/$restaurentId/$itemId'
     | '/user/$restaurentId/browsemenu'
     | '/user/$restaurentId'
@@ -108,6 +130,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/(RESTAURENT)/restaurent/dashboard'
     | '/(USER)/user/$restaurentId'
+    | '/(USER)/user/order-tracking'
+    | '/(USER)/user/payment'
     | '/(USER)/user/$restaurentId/$itemId'
     | '/(USER)/user/$restaurentId/browsemenu'
     | '/(USER)/user/$restaurentId/'
@@ -118,6 +142,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
   USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRouteWithChildren
+  USERUserOrderTrackingRoute: typeof USERUserOrderTrackingRoute
+  USERUserPaymentRoute: typeof USERUserPaymentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -134,6 +160,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(USER)/user/payment': {
+      id: '/(USER)/user/payment'
+      path: '/user/payment'
+      fullPath: '/user/payment'
+      preLoaderRoute: typeof USERUserPaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(USER)/user/order-tracking': {
+      id: '/(USER)/user/order-tracking'
+      path: '/user/order-tracking'
+      fullPath: '/user/order-tracking'
+      preLoaderRoute: typeof USERUserOrderTrackingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(USER)/user/$restaurentId': {
@@ -194,6 +234,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
   USERUserRestaurentIdRoute: USERUserRestaurentIdRouteWithChildren,
+  USERUserOrderTrackingRoute: USERUserOrderTrackingRoute,
+  USERUserPaymentRoute: USERUserPaymentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, Share2, View, Star, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -109,14 +109,26 @@ function RouteComponent() {
           </div>
 
           {/* Topping */}
-          <Card className="p-4 flex items-center justify-between border border-[#8f6f6d]/10 shadow-sm">
+          {/* <Card className="p-4 flex items-center justify-between border border-[#8f6f6d]/10 shadow-sm">
             <div>
               <h3 className="font-bold">Extra Butter Swirl</h3>
               <p className="text-xs text-gray-500">
                 Added creaminess for richness (+₹20)
               </p>
             </div>
-          </Card>
+          </Card> */}
+
+          <div>
+            <Button
+              asChild
+              className="w-full bg-red-primary text-white h-12 flex flex-row items-center gap-2"
+            >
+              <Link to="/user/payment">
+                <span>Add to cart</span>
+                <span>₹250</span>
+              </Link>
+            </Button>
+          </div>
         </section>
       </main>
     </div>
