@@ -32,7 +32,7 @@ function RouteComponent() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative h-[380px] w-full overflow-hidden">
+        <section className="relative h-95 w-full overflow-hidden">
           <img
             alt="Dal Makhani"
             className="w-full h-full object-cover"
