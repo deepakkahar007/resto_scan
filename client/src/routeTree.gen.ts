@@ -11,9 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RESTAURENTRestaurentRouteRouteImport } from './routes/(RESTAURENT)/restaurent/route'
 import { Route as USERUserPaymentRouteImport } from './routes/(USER)/user/payment'
 import { Route as USERUserOrderTrackingRouteImport } from './routes/(USER)/user/order-tracking'
 import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
+import { Route as RESTAURENTRestaurentLiveOrdersRouteImport } from './routes/(RESTAURENT)/restaurent/live-orders'
 import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
 import { Route as USERUserRestaurentIdIndexRouteImport } from './routes/(USER)/user/$restaurentId/index'
 import { Route as USERUserRestaurentIdBrowsemenuRouteImport } from './routes/(USER)/user/$restaurentId/browsemenu'
@@ -29,6 +31,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RESTAURENTRestaurentRouteRoute =
+  RESTAURENTRestaurentRouteRouteImport.update({
+    id: '/(RESTAURENT)/restaurent',
+    path: '/restaurent',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const USERUserPaymentRoute = USERUserPaymentRouteImport.update({
   id: '/(USER)/user/payment',
   path: '/user/payment',
@@ -44,11 +52,17 @@ const USERUserRestaurentIdRoute = USERUserRestaurentIdRouteImport.update({
   path: '/user/$restaurentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RESTAURENTRestaurentLiveOrdersRoute =
+  RESTAURENTRestaurentLiveOrdersRouteImport.update({
+    id: '/live-orders',
+    path: '/live-orders',
+    getParentRoute: () => RESTAURENTRestaurentRouteRoute,
+  } as any)
 const RESTAURENTRestaurentDashboardRoute =
   RESTAURENTRestaurentDashboardRouteImport.update({
-    id: '/(RESTAURENT)/restaurent/dashboard',
-    path: '/restaurent/dashboard',
-    getParentRoute: () => rootRouteImport,
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => RESTAURENTRestaurentRouteRoute,
   } as any)
 const USERUserRestaurentIdIndexRoute =
   USERUserRestaurentIdIndexRouteImport.update({
@@ -72,7 +86,9 @@ const USERUserRestaurentIdItemIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
   '/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/user/payment': typeof USERUserPaymentRoute
@@ -83,7 +99,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
   '/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/user/payment': typeof USERUserPaymentRoute
   '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
@@ -94,7 +112,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/(RESTAURENT)/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
   '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
+  '/(RESTAURENT)/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
   '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
   '/(USER)/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/(USER)/user/payment': typeof USERUserPaymentRoute
@@ -107,7 +127,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/restaurent'
     | '/restaurent/dashboard'
+    | '/restaurent/live-orders'
     | '/user/$restaurentId'
     | '/user/order-tracking'
     | '/user/payment'
@@ -118,7 +140,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/restaurent'
     | '/restaurent/dashboard'
+    | '/restaurent/live-orders'
     | '/user/order-tracking'
     | '/user/payment'
     | '/user/$restaurentId/$itemId'
@@ -128,7 +152,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/(RESTAURENT)/restaurent'
     | '/(RESTAURENT)/restaurent/dashboard'
+    | '/(RESTAURENT)/restaurent/live-orders'
     | '/(USER)/user/$restaurentId'
     | '/(USER)/user/order-tracking'
     | '/(USER)/user/payment'
@@ -140,7 +166,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
+  RESTAURENTRestaurentRouteRoute: typeof RESTAURENTRestaurentRouteRouteWithChildren
   USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRouteWithChildren
   USERUserOrderTrackingRoute: typeof USERUserOrderTrackingRoute
   USERUserPaymentRoute: typeof USERUserPaymentRoute
@@ -160,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(RESTAURENT)/restaurent': {
+      id: '/(RESTAURENT)/restaurent'
+      path: '/restaurent'
+      fullPath: '/restaurent'
+      preLoaderRoute: typeof RESTAURENTRestaurentRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(USER)/user/payment': {
@@ -183,12 +216,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof USERUserRestaurentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(RESTAURENT)/restaurent/live-orders': {
+      id: '/(RESTAURENT)/restaurent/live-orders'
+      path: '/live-orders'
+      fullPath: '/restaurent/live-orders'
+      preLoaderRoute: typeof RESTAURENTRestaurentLiveOrdersRouteImport
+      parentRoute: typeof RESTAURENTRestaurentRouteRoute
+    }
     '/(RESTAURENT)/restaurent/dashboard': {
       id: '/(RESTAURENT)/restaurent/dashboard'
-      path: '/restaurent/dashboard'
+      path: '/dashboard'
       fullPath: '/restaurent/dashboard'
       preLoaderRoute: typeof RESTAURENTRestaurentDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof RESTAURENTRestaurentRouteRoute
     }
     '/(USER)/user/$restaurentId/': {
       id: '/(USER)/user/$restaurentId/'
@@ -214,6 +254,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface RESTAURENTRestaurentRouteRouteChildren {
+  RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
+  RESTAURENTRestaurentLiveOrdersRoute: typeof RESTAURENTRestaurentLiveOrdersRoute
+}
+
+const RESTAURENTRestaurentRouteRouteChildren: RESTAURENTRestaurentRouteRouteChildren =
+  {
+    RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
+    RESTAURENTRestaurentLiveOrdersRoute: RESTAURENTRestaurentLiveOrdersRoute,
+  }
+
+const RESTAURENTRestaurentRouteRouteWithChildren =
+  RESTAURENTRestaurentRouteRoute._addFileChildren(
+    RESTAURENTRestaurentRouteRouteChildren,
+  )
+
 interface USERUserRestaurentIdRouteChildren {
   USERUserRestaurentIdItemIdRoute: typeof USERUserRestaurentIdItemIdRoute
   USERUserRestaurentIdBrowsemenuRoute: typeof USERUserRestaurentIdBrowsemenuRoute
@@ -232,7 +288,7 @@ const USERUserRestaurentIdRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
+  RESTAURENTRestaurentRouteRoute: RESTAURENTRestaurentRouteRouteWithChildren,
   USERUserRestaurentIdRoute: USERUserRestaurentIdRouteWithChildren,
   USERUserOrderTrackingRoute: USERUserOrderTrackingRoute,
   USERUserPaymentRoute: USERUserPaymentRoute,
