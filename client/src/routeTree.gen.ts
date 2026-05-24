@@ -11,10 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as USERUserPaymentRouteImport } from './routes/(USER)/user/payment'
+import { Route as USERUserOrderTrackingRouteImport } from './routes/(USER)/user/order-tracking'
 import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
 import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
-import { Route as USERUserRestaurantIdIndexRouteImport } from './routes/(USER)/user/$restaurantId.index'
-import { Route as USERUserRestaurantIdBrowsemenuRouteImport } from './routes/(USER)/user/$restaurantId.browsemenu'
+import { Route as USERUserRestaurentIdIndexRouteImport } from './routes/(USER)/user/$restaurentId/index'
+import { Route as USERUserRestaurentIdBrowsemenuRouteImport } from './routes/(USER)/user/$restaurentId/browsemenu'
+import { Route as USERUserRestaurentIdItemIdRouteImport } from './routes/(USER)/user/$restaurentId/$itemId'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -24,6 +27,16 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const USERUserPaymentRoute = USERUserPaymentRouteImport.update({
+  id: '/(USER)/user/payment',
+  path: '/user/payment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const USERUserOrderTrackingRoute = USERUserOrderTrackingRouteImport.update({
+  id: '/(USER)/user/order-tracking',
+  path: '/user/order-tracking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const USERUserRestaurentIdRoute = USERUserRestaurentIdRouteImport.update({
@@ -37,43 +50,57 @@ const RESTAURENTRestaurentDashboardRoute =
     path: '/restaurent/dashboard',
     getParentRoute: () => rootRouteImport,
   } as any)
-const USERUserRestaurantIdIndexRoute =
-  USERUserRestaurantIdIndexRouteImport.update({
-    id: '/(USER)/user/$restaurantId/',
-    path: '/user/$restaurantId/',
-    getParentRoute: () => rootRouteImport,
+const USERUserRestaurentIdIndexRoute =
+  USERUserRestaurentIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => USERUserRestaurentIdRoute,
   } as any)
-const USERUserRestaurantIdBrowsemenuRoute =
-  USERUserRestaurantIdBrowsemenuRouteImport.update({
-    id: '/(USER)/user/$restaurantId/browsemenu',
-    path: '/user/$restaurantId/browsemenu',
-    getParentRoute: () => rootRouteImport,
+const USERUserRestaurentIdBrowsemenuRoute =
+  USERUserRestaurentIdBrowsemenuRouteImport.update({
+    id: '/browsemenu',
+    path: '/browsemenu',
+    getParentRoute: () => USERUserRestaurentIdRoute,
+  } as any)
+const USERUserRestaurentIdItemIdRoute =
+  USERUserRestaurentIdItemIdRouteImport.update({
+    id: '/$itemId',
+    path: '/$itemId',
+    getParentRoute: () => USERUserRestaurentIdRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
-  '/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
-  '/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
+  '/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
+  '/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/user/payment': typeof USERUserPaymentRoute
+  '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
+  '/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
+  '/user/$restaurentId/': typeof USERUserRestaurentIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
-  '/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
-  '/user/$restaurantId': typeof USERUserRestaurantIdIndexRoute
+  '/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/user/payment': typeof USERUserPaymentRoute
+  '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
+  '/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
+  '/user/$restaurentId': typeof USERUserRestaurentIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
-  '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRoute
-  '/(USER)/user/$restaurantId/browsemenu': typeof USERUserRestaurantIdBrowsemenuRoute
-  '/(USER)/user/$restaurantId/': typeof USERUserRestaurantIdIndexRoute
+  '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
+  '/(USER)/user/order-tracking': typeof USERUserOrderTrackingRoute
+  '/(USER)/user/payment': typeof USERUserPaymentRoute
+  '/(USER)/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
+  '/(USER)/user/$restaurentId/browsemenu': typeof USERUserRestaurentIdBrowsemenuRoute
+  '/(USER)/user/$restaurentId/': typeof USERUserRestaurentIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -82,33 +109,41 @@ export interface FileRouteTypes {
     | '/about'
     | '/restaurent/dashboard'
     | '/user/$restaurentId'
-    | '/user/$restaurantId/browsemenu'
-    | '/user/$restaurantId/'
+    | '/user/order-tracking'
+    | '/user/payment'
+    | '/user/$restaurentId/$itemId'
+    | '/user/$restaurentId/browsemenu'
+    | '/user/$restaurentId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/restaurent/dashboard'
+    | '/user/order-tracking'
+    | '/user/payment'
+    | '/user/$restaurentId/$itemId'
+    | '/user/$restaurentId/browsemenu'
     | '/user/$restaurentId'
-    | '/user/$restaurantId/browsemenu'
-    | '/user/$restaurantId'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/(RESTAURENT)/restaurent/dashboard'
     | '/(USER)/user/$restaurentId'
-    | '/(USER)/user/$restaurantId/browsemenu'
-    | '/(USER)/user/$restaurantId/'
+    | '/(USER)/user/order-tracking'
+    | '/(USER)/user/payment'
+    | '/(USER)/user/$restaurentId/$itemId'
+    | '/(USER)/user/$restaurentId/browsemenu'
+    | '/(USER)/user/$restaurentId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
-  USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRoute
-  USERUserRestaurantIdBrowsemenuRoute: typeof USERUserRestaurantIdBrowsemenuRoute
-  USERUserRestaurantIdIndexRoute: typeof USERUserRestaurantIdIndexRoute
+  USERUserRestaurentIdRoute: typeof USERUserRestaurentIdRouteWithChildren
+  USERUserOrderTrackingRoute: typeof USERUserOrderTrackingRoute
+  USERUserPaymentRoute: typeof USERUserPaymentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -127,6 +162,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(USER)/user/payment': {
+      id: '/(USER)/user/payment'
+      path: '/user/payment'
+      fullPath: '/user/payment'
+      preLoaderRoute: typeof USERUserPaymentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(USER)/user/order-tracking': {
+      id: '/(USER)/user/order-tracking'
+      path: '/user/order-tracking'
+      fullPath: '/user/order-tracking'
+      preLoaderRoute: typeof USERUserOrderTrackingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(USER)/user/$restaurentId': {
       id: '/(USER)/user/$restaurentId'
       path: '/user/$restaurentId'
@@ -141,30 +190,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RESTAURENTRestaurentDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(USER)/user/$restaurantId/': {
-      id: '/(USER)/user/$restaurantId/'
-      path: '/user/$restaurantId'
-      fullPath: '/user/$restaurantId/'
-      preLoaderRoute: typeof USERUserRestaurantIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(USER)/user/$restaurentId/': {
+      id: '/(USER)/user/$restaurentId/'
+      path: '/'
+      fullPath: '/user/$restaurentId/'
+      preLoaderRoute: typeof USERUserRestaurentIdIndexRouteImport
+      parentRoute: typeof USERUserRestaurentIdRoute
     }
-    '/(USER)/user/$restaurantId/browsemenu': {
-      id: '/(USER)/user/$restaurantId/browsemenu'
-      path: '/user/$restaurantId/browsemenu'
-      fullPath: '/user/$restaurantId/browsemenu'
-      preLoaderRoute: typeof USERUserRestaurantIdBrowsemenuRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(USER)/user/$restaurentId/browsemenu': {
+      id: '/(USER)/user/$restaurentId/browsemenu'
+      path: '/browsemenu'
+      fullPath: '/user/$restaurentId/browsemenu'
+      preLoaderRoute: typeof USERUserRestaurentIdBrowsemenuRouteImport
+      parentRoute: typeof USERUserRestaurentIdRoute
+    }
+    '/(USER)/user/$restaurentId/$itemId': {
+      id: '/(USER)/user/$restaurentId/$itemId'
+      path: '/$itemId'
+      fullPath: '/user/$restaurentId/$itemId'
+      preLoaderRoute: typeof USERUserRestaurentIdItemIdRouteImport
+      parentRoute: typeof USERUserRestaurentIdRoute
     }
   }
 }
+
+interface USERUserRestaurentIdRouteChildren {
+  USERUserRestaurentIdItemIdRoute: typeof USERUserRestaurentIdItemIdRoute
+  USERUserRestaurentIdBrowsemenuRoute: typeof USERUserRestaurentIdBrowsemenuRoute
+  USERUserRestaurentIdIndexRoute: typeof USERUserRestaurentIdIndexRoute
+}
+
+const USERUserRestaurentIdRouteChildren: USERUserRestaurentIdRouteChildren = {
+  USERUserRestaurentIdItemIdRoute: USERUserRestaurentIdItemIdRoute,
+  USERUserRestaurentIdBrowsemenuRoute: USERUserRestaurentIdBrowsemenuRoute,
+  USERUserRestaurentIdIndexRoute: USERUserRestaurentIdIndexRoute,
+}
+
+const USERUserRestaurentIdRouteWithChildren =
+  USERUserRestaurentIdRoute._addFileChildren(USERUserRestaurentIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
-  USERUserRestaurentIdRoute: USERUserRestaurentIdRoute,
-  USERUserRestaurantIdBrowsemenuRoute: USERUserRestaurantIdBrowsemenuRoute,
-  USERUserRestaurantIdIndexRoute: USERUserRestaurantIdIndexRoute,
+  USERUserRestaurentIdRoute: USERUserRestaurentIdRouteWithChildren,
+  USERUserOrderTrackingRoute: USERUserOrderTrackingRoute,
+  USERUserPaymentRoute: USERUserPaymentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
