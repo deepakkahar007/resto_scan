@@ -62,8 +62,12 @@ const AppSideBar = () => {
             url: "/restaurent/live-orders",
           },
           {
-            title: "Settings",
-            url: "#",
+            title: "Menu Manager",
+            url: "/restaurent/menu-manager",
+          },
+          {
+            title: "Ai Insights",
+            url: "/restaurent/ai-insights",
           },
         ],
       },

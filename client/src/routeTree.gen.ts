@@ -15,8 +15,10 @@ import { Route as RESTAURENTRestaurentRouteRouteImport } from './routes/(RESTAUR
 import { Route as USERUserPaymentRouteImport } from './routes/(USER)/user/payment'
 import { Route as USERUserOrderTrackingRouteImport } from './routes/(USER)/user/order-tracking'
 import { Route as USERUserRestaurentIdRouteImport } from './routes/(USER)/user/$restaurentId'
+import { Route as RESTAURENTRestaurentMenuManagerRouteImport } from './routes/(RESTAURENT)/restaurent/menu-manager'
 import { Route as RESTAURENTRestaurentLiveOrdersRouteImport } from './routes/(RESTAURENT)/restaurent/live-orders'
 import { Route as RESTAURENTRestaurentDashboardRouteImport } from './routes/(RESTAURENT)/restaurent/dashboard'
+import { Route as RESTAURENTRestaurentAiInsightsRouteImport } from './routes/(RESTAURENT)/restaurent/ai-insights'
 import { Route as USERUserRestaurentIdIndexRouteImport } from './routes/(USER)/user/$restaurentId/index'
 import { Route as USERUserRestaurentIdBrowsemenuRouteImport } from './routes/(USER)/user/$restaurentId/browsemenu'
 import { Route as USERUserRestaurentIdItemIdRouteImport } from './routes/(USER)/user/$restaurentId/$itemId'
@@ -52,6 +54,12 @@ const USERUserRestaurentIdRoute = USERUserRestaurentIdRouteImport.update({
   path: '/user/$restaurentId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RESTAURENTRestaurentMenuManagerRoute =
+  RESTAURENTRestaurentMenuManagerRouteImport.update({
+    id: '/menu-manager',
+    path: '/menu-manager',
+    getParentRoute: () => RESTAURENTRestaurentRouteRoute,
+  } as any)
 const RESTAURENTRestaurentLiveOrdersRoute =
   RESTAURENTRestaurentLiveOrdersRouteImport.update({
     id: '/live-orders',
@@ -62,6 +70,12 @@ const RESTAURENTRestaurentDashboardRoute =
   RESTAURENTRestaurentDashboardRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
+    getParentRoute: () => RESTAURENTRestaurentRouteRoute,
+  } as any)
+const RESTAURENTRestaurentAiInsightsRoute =
+  RESTAURENTRestaurentAiInsightsRouteImport.update({
+    id: '/ai-insights',
+    path: '/ai-insights',
     getParentRoute: () => RESTAURENTRestaurentRouteRoute,
   } as any)
 const USERUserRestaurentIdIndexRoute =
@@ -87,8 +101,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
+  '/restaurent/ai-insights': typeof RESTAURENTRestaurentAiInsightsRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
+  '/restaurent/menu-manager': typeof RESTAURENTRestaurentMenuManagerRoute
   '/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
   '/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/user/payment': typeof USERUserPaymentRoute
@@ -100,8 +116,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
+  '/restaurent/ai-insights': typeof RESTAURENTRestaurentAiInsightsRoute
   '/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
+  '/restaurent/menu-manager': typeof RESTAURENTRestaurentMenuManagerRoute
   '/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/user/payment': typeof USERUserPaymentRoute
   '/user/$restaurentId/$itemId': typeof USERUserRestaurentIdItemIdRoute
@@ -113,8 +131,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/(RESTAURENT)/restaurent': typeof RESTAURENTRestaurentRouteRouteWithChildren
+  '/(RESTAURENT)/restaurent/ai-insights': typeof RESTAURENTRestaurentAiInsightsRoute
   '/(RESTAURENT)/restaurent/dashboard': typeof RESTAURENTRestaurentDashboardRoute
   '/(RESTAURENT)/restaurent/live-orders': typeof RESTAURENTRestaurentLiveOrdersRoute
+  '/(RESTAURENT)/restaurent/menu-manager': typeof RESTAURENTRestaurentMenuManagerRoute
   '/(USER)/user/$restaurentId': typeof USERUserRestaurentIdRouteWithChildren
   '/(USER)/user/order-tracking': typeof USERUserOrderTrackingRoute
   '/(USER)/user/payment': typeof USERUserPaymentRoute
@@ -128,8 +148,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/restaurent'
+    | '/restaurent/ai-insights'
     | '/restaurent/dashboard'
     | '/restaurent/live-orders'
+    | '/restaurent/menu-manager'
     | '/user/$restaurentId'
     | '/user/order-tracking'
     | '/user/payment'
@@ -141,8 +163,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/restaurent'
+    | '/restaurent/ai-insights'
     | '/restaurent/dashboard'
     | '/restaurent/live-orders'
+    | '/restaurent/menu-manager'
     | '/user/order-tracking'
     | '/user/payment'
     | '/user/$restaurentId/$itemId'
@@ -153,8 +177,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/(RESTAURENT)/restaurent'
+    | '/(RESTAURENT)/restaurent/ai-insights'
     | '/(RESTAURENT)/restaurent/dashboard'
     | '/(RESTAURENT)/restaurent/live-orders'
+    | '/(RESTAURENT)/restaurent/menu-manager'
     | '/(USER)/user/$restaurentId'
     | '/(USER)/user/order-tracking'
     | '/(USER)/user/payment'
@@ -216,6 +242,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof USERUserRestaurentIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(RESTAURENT)/restaurent/menu-manager': {
+      id: '/(RESTAURENT)/restaurent/menu-manager'
+      path: '/menu-manager'
+      fullPath: '/restaurent/menu-manager'
+      preLoaderRoute: typeof RESTAURENTRestaurentMenuManagerRouteImport
+      parentRoute: typeof RESTAURENTRestaurentRouteRoute
+    }
     '/(RESTAURENT)/restaurent/live-orders': {
       id: '/(RESTAURENT)/restaurent/live-orders'
       path: '/live-orders'
@@ -228,6 +261,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/restaurent/dashboard'
       preLoaderRoute: typeof RESTAURENTRestaurentDashboardRouteImport
+      parentRoute: typeof RESTAURENTRestaurentRouteRoute
+    }
+    '/(RESTAURENT)/restaurent/ai-insights': {
+      id: '/(RESTAURENT)/restaurent/ai-insights'
+      path: '/ai-insights'
+      fullPath: '/restaurent/ai-insights'
+      preLoaderRoute: typeof RESTAURENTRestaurentAiInsightsRouteImport
       parentRoute: typeof RESTAURENTRestaurentRouteRoute
     }
     '/(USER)/user/$restaurentId/': {
@@ -255,14 +295,18 @@ declare module '@tanstack/react-router' {
 }
 
 interface RESTAURENTRestaurentRouteRouteChildren {
+  RESTAURENTRestaurentAiInsightsRoute: typeof RESTAURENTRestaurentAiInsightsRoute
   RESTAURENTRestaurentDashboardRoute: typeof RESTAURENTRestaurentDashboardRoute
   RESTAURENTRestaurentLiveOrdersRoute: typeof RESTAURENTRestaurentLiveOrdersRoute
+  RESTAURENTRestaurentMenuManagerRoute: typeof RESTAURENTRestaurentMenuManagerRoute
 }
 
 const RESTAURENTRestaurentRouteRouteChildren: RESTAURENTRestaurentRouteRouteChildren =
   {
+    RESTAURENTRestaurentAiInsightsRoute: RESTAURENTRestaurentAiInsightsRoute,
     RESTAURENTRestaurentDashboardRoute: RESTAURENTRestaurentDashboardRoute,
     RESTAURENTRestaurentLiveOrdersRoute: RESTAURENTRestaurentLiveOrdersRoute,
+    RESTAURENTRestaurentMenuManagerRoute: RESTAURENTRestaurentMenuManagerRoute,
   }
 
 const RESTAURENTRestaurentRouteRouteWithChildren =

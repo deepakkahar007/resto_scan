@@ -11,7 +11,11 @@ function Index() {
       <h3 className="text-white">Welcome Home!</h3>
 
       <Link to="/user/$restaurentId" params={{ restaurentId: "123" }}>
-        <Button>Go to Restaurent order page</Button>
+        <Button>Go to USER order page</Button>
+      </Link>
+
+      <Link to="/restaurent/dashboard">
+        <Button>Go to RESTAURENT order page</Button>
       </Link>
     </div>
   );
