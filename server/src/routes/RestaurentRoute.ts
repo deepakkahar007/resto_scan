@@ -4,12 +4,14 @@ import {
   updateRestaurentSchema,
 } from "../schema/restaurentSchema";
 import { z } from "zod";
+import { createRestaurent, getAllRestaurent } from "@/db/restaurentQuery";
 
 export const restaurentRoute = new Elysia({ prefix: "/restaurent" })
   .get(
     "/",
     async () => {
-      return { message: "All restaurants" };
+      const restauernt = await getAllRestaurent();
+      return { message: "All restaurants", restauernt };
     },
     {
       detail: {
@@ -38,7 +40,14 @@ export const restaurentRoute = new Elysia({ prefix: "/restaurent" })
   .post(
     "/",
     async ({ body }) => {
-      return { message: "Restaurant created successfully", body };
+      const bodyData = body;
+
+      const createdRestaurentId = await createRestaurent(bodyData);
+
+      return {
+        message: "Restaurant created successfully",
+        id: createdRestaurentId?.id,
+      };
     },
     {
       body: createRestaurentSchema,
